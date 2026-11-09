@@ -1,0 +1,89 @@
+/* Custom styles & utilities for MyToDoList */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700&display=swap');
+
+body {
+  font-family: 'Plus Jakarta Sans', 'Noto Sans TC', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Custom checkbox animation */
+.task-checkbox:checked + .task-checkbox-custom {
+  background-color: #4f46e5;
+  border-color: #4f46e5;
+}
+
+.task-checkbox:checked + .task-checkbox-custom svg {
+  display: block;
+}
+
+/* Avatar stack overlap */
+.avatar-stack > * {
+  margin-left: -0.5rem;
+  border: 2px solid #ffffff;
+  transition: transform 0.15s ease-in-out;
+}
+
+.avatar-stack > *:first-child {
+  margin-left: 0;
+}
+
+.avatar-stack > *:hover {
+  transform: translateY(-2px) scale(1.08);
+  z-index: 10;
+}
+
+/* Pulse animation for real-time sync badge */
+@keyframes syncPulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(0.9);
+  }
+}
+
+.sync-dot {
+  animation: syncPulse 2.5s infinite ease-in-out;
+}
+
+/* Toast notification */
+#toast-container {
+  pointer-events: none;
+  z-index: 9999;
+}
+.toast {
+  pointer-events: auto;
+  animation: slideInUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes slideInUp {
+  from {
+    transform: translateY(1rem);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

@@ -1,0 +1,30 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // 使用者基本資料集合
+    match /users/{userId} {
+      allow read, write: if request.auth != null;
+    }
+
+    // 協作清單集合
+    match /lists/{listId} {
+      // 允許已登入使用者查詢或透過分享碼加入清單
+      allow read: if request.auth != null;
+      
+      // 建立清單：登入者即可建立
+      allow create: if request.auth != null;
+      
+      // 更新清單：允許成員或加入者更新
+      allow update: if request.auth != null;
+      
+      // 刪除清單：僅限清單擁有者
+      allow delete: if request.auth != null && resource.data.ownerId == request.auth.uid;
+
+      // 清單內的待辦事項子集合
+      match /tasks/{taskId} {
+        allow read, write: if request.auth != null;
+      }
+    }
+  }
+}
