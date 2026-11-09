@@ -1,21 +1,21 @@
 // Firebase 配置設定
-// 預設填入專案: my-to-do-list-aab19
+// 專案: my-to-do-list-aab19
 export const defaultFirebaseConfig = {
-  apiKey: "YOUR_FIREBASE_API_KEY", // 請替換為 Firebase Console 中的 Web API Key
+  apiKey: "AIzaSyDF22Ay9F_RhsIczIPwkyW_P6lop6AG9cA",
   authDomain: "my-to-do-list-aab19.firebaseapp.com",
   projectId: "my-to-do-list-aab19",
-  storageBucket: "my-to-do-list-aab19.appspot.com",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_FIREBASE_APP_ID"
+  storageBucket: "my-to-do-list-aab19.firebasestorage.app",
+  messagingSenderId: "410467872644",
+  appId: "1:410467872644:web:a69bc2ff011ef31c72f7d1"
 };
 
-// 支援從 LocalStorage 讀取自定義設定（方便在介面中直接設定與即時測試）
+// 支援從 LocalStorage 讀取自定義設定（若有快取則以設定優先，否則使用預設配置）
 export function getFirebaseConfig() {
   const saved = localStorage.getItem("my_todolist_firebase_config");
   if (saved) {
     try {
       const parsed = JSON.parse(saved);
-      if (parsed && parsed.projectId) {
+      if (parsed && parsed.apiKey && parsed.apiKey.startsWith("AIzaSy")) {
         return parsed;
       }
     } catch (e) {
@@ -30,5 +30,5 @@ export function saveFirebaseConfig(config) {
 }
 
 export function isConfigured(config = getFirebaseConfig()) {
-  return config && config.apiKey && config.apiKey !== "YOUR_FIREBASE_API_KEY" && config.apiKey.trim() !== "";
+  return config && config.apiKey && config.apiKey.startsWith("AIzaSy");
 }
